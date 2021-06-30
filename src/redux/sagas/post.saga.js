@@ -26,9 +26,9 @@ function* createPostSaga(action) {
 
 
   function* fetchProfilePosts(action) {
-    console.log("got to fetchProfilePosts")
+    console.log("got to fetchProfilePosts payload id ->", action.payload)
     try {
-      const profPosts = yield axios.get(`/post/profile/${action.payload}`);
+      const profPosts = yield axios.get(`/post/profile/${action.payload.userID}`);
       console.log(profPosts.data)
       yield put({type:'SET_USER_POSTS', payload: profPosts.data})
     } catch (error) {
@@ -62,8 +62,8 @@ function* createPostSaga(action) {
   function* deleteProfilePosts(action) {
     console.log("got to deleteProfilePosts payload is ->", action.payload)
     try {
-      yield axios.delete(`/post/profile/${action.payload}`);
-      yield put({type:'FETCH_PROFILE_POSTS'})
+      yield axios.delete(`/post/profile/${action.payload.postID}`);
+      yield put({type:'FETCH_PROFILE_POSTS', payload: action.payload})
     } catch (error) {
       console.log('fetch profile posts failed', error);
     }

@@ -11,7 +11,7 @@ function Profile () {
 
     useEffect(() => {
  
-        dispatch({type: 'FETCH_PROFILE_POSTS', payload:user.id})
+        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: user.id}})
       }, []);
 
 
@@ -23,7 +23,7 @@ function Profile () {
     const deletePost = (post) => {
         console.log("deletePost", post.id)
 
-        dispatch({type: 'DELETE_PROFILE_POSTS', payload: post.id})
+        dispatch({type: 'DELETE_PROFILE_POSTS', payload:{postID: post.id, userID: user.id}})
     }
 
 

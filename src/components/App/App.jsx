@@ -19,7 +19,9 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import MainFeed from '../MainFeed/MainFeed';
+import CreatePost from '../CreatePost/CreatePost';
+import Profile from '../Profile/Profile';
 import './App.css';
 
 function App() {
@@ -101,6 +103,36 @@ function App() {
           >
             <LandingPage />
           </ProtectedRoute>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows LandingPage at "/home"
+            exact
+            path="/feed"
+    
+          >
+            <MainFeed />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows LandingPage at "/home"
+            exact
+            path="/create"
+    
+          >
+            <CreatePost />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows LandingPage at "/home"
+            exact
+            path="/profile"
+    
+          >
+            <Profile />
+          </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
@@ -108,6 +140,7 @@ function App() {
           </Route>
         </Switch>
         <Footer />
+        
       </div>
     </Router>
   );

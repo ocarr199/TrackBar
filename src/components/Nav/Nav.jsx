@@ -39,6 +39,15 @@ function Nav() {
         <Link className="navLink" to="/about">
           About
         </Link>
+        <Link className="navLink" to="/feed">
+          Feed
+        </Link>
+        <Link className="navLink" to="/create">
+          Create
+        </Link>
+        <Link className="navLink" to="/profile">
+          Profile
+        </Link>
       </div>
     </div>
   );

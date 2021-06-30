@@ -21,6 +21,26 @@ router.get('/', (req, res) => {
 })
 
 
+router.get('/profile/:id', (req, res) => {
+  const userID = req.params.id
+  console.log(req.body)
+  const query = `SELECT *,"post".id, "user".username FROM "post"
+                  JOIN "user" ON "post".user_id = "user".id
+                  ORDER BY "favorites" DESC
+                  WHERE user_id = $1;`
+  pool.query(query, [userID])
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.error("ERROR in post get", err);
+      res.sendStatus(500)
+    })
+
+
+})
+
+
 router.post('/', (req, res) => {
   console.log('this is the req.body', req.body);
 

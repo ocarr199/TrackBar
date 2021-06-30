@@ -7,23 +7,23 @@ import {  useSelector } from 'react-redux'
 import Post from '../Post/Post'
 function Profile () {
     const dispatch = useDispatch();
-    const user = useSelector((store) => store.user);
+
     useEffect(() => {
-        dispatch({ type: 'FETCH_USER' });
-      }, [dispatch]);
+ 
+        dispatch({type: 'FETCH_PROFILE_POSTS', payload:user.id})
+      }, []);
+
+
+        const posts = useSelector(store => store.posts);
+        const user = useSelector(store => store.user)
+
+        console.log(user.id)
+
 console.log(user)
     return(
         <> 
-      <Card>  
-        <Typography variant="h6" component="h2">
-            {user.username}
-        </Typography>
+   
 
-        <Typography variant="body2" component="h2">
-            BIO GOES HERE 
-        </Typography>
-        </Card>
-        <Post />
         </>
     )
 }

@@ -25,6 +25,18 @@ function* createPostSaga(action) {
   }
 
 
+  function* fetchProfilePosts(action) {
+    console.log("got to fetchProfilePosts")
+    try {
+      const profPosts = yield axios.get(`/post/profile/${action.payload}`);
+      console.log(profPosts.data)
+      // yield put({type:'SET_POSTS', payload: profPosts.data})
+    } catch (error) {
+      console.log('fetch profile posts failed', error);
+    }
+  }
+
+
   function* favoritePostSaga(action) {
     console.log("got to favoritePostSaga with payload ->", action.payload)
     try {
@@ -52,6 +64,7 @@ function* createPostSaga(action) {
     yield takeLatest('FETCH_POSTS', getPostSaga);
     yield takeLatest('FAVORITE_POST', favoritePostSaga);
     yield takeLatest('FETCH_FAVORITES', fetchFavoritesSaga);
+    yield takeLatest('FETCH_PROFILE_POSTS', fetchProfilePosts)
   }
   
   export default postSaga;

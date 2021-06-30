@@ -23,3 +23,24 @@ body {
     margin: 10px;
 
 }
+
+.responses{
+    display: grid;
+    place-items: center;
+}
+
+.responses #likeBtn{
+color: gray;
+}
+
+
+
+.responses #likeBtn:hover{
+ cursor: pointer;
+
+}
+
+.responses #likeBtn:active{
+
+ color: black;
+}

@@ -4,8 +4,8 @@ const router = express.Router();
 const axios = require('axios');
 
 router.get('/', (req, res) => {
-  const query = `SELECT *, "user".username FROM "post"
-                  JOIN "user" ON "post".user_id ="user".id;`
+  const query = `SELECT *,"post".id, "user".username FROM "post"
+                  JOIN "user" ON "post".user_id = "user".id;`
   pool.query(query)
     .then( result => {
       res.send(result.rows);
@@ -34,5 +34,10 @@ pool.query(postQuery, values)
 
 
 })
+
+
+
+
+
 
 module.exports = router;

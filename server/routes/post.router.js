@@ -17,18 +17,32 @@ router.get('/', (req, res) => {
       res.sendStatus(500)
     })
 
-
 })
 
 
 router.get('/profile/:id', (req, res) => {
   const userID = req.params.id
-  console.log(req.body)
+  console.log(userID)
   const query = `SELECT *,"post".id, "user".username FROM "post"
                   JOIN "user" ON "post".user_id = "user".id
-                  ORDER BY "favorites" DESC
-                  WHERE user_id = $1;`
+                  WHERE "post".user_id = $1;`
   pool.query(query, [userID])
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.error("ERROR in post get", err);
+      res.sendStatus(500)
+    })
+
+
+})
+
+router.delete('/profile/:id', (req, res) => {
+  const postID = req.params.id
+  console.log(postID)
+  const query = `DELETE FROM "post" WHERE id = $1;`
+  pool.query(query, [postID])
     .then( result => {
       res.send(result.rows);
     })

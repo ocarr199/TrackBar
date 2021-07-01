@@ -12,10 +12,20 @@ function Profile () {
     const dispatch = useDispatch();
 const { id } = useParams();
     useEffect(() => {
+        console.log(id)
+        console.log(user.id)
         console.log('at profile')
+        ownerOrNot()
+        console.log(owner)
         dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: id}})
       }, []);
-
+      let owner;
+const ownerOrNot = () => {
+    if (user.id == id ){
+        return owner = true
+    }
+    return owner = false
+}
 
 
         const posts = useSelector(store => store.posts);
@@ -31,8 +41,8 @@ const { id } = useParams();
     }
 
 
-
-
+console.log(posts)
+console.log(user)
 console.log(user)
     return(
         <> 

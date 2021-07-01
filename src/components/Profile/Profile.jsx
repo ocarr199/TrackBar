@@ -12,20 +12,12 @@ function Profile () {
     const dispatch = useDispatch();
 const { id } = useParams();
     useEffect(() => {
-        console.log(id)
-        console.log(user.id)
+
         console.log('at profile')
-        ownerOrNot()
-        console.log(owner)
+
         dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: id}})
       }, []);
-      let owner;
-const ownerOrNot = () => {
-    if (user.id == id ){
-        return owner = true
-    }
-    return owner = false
-}
+
 
 
         const posts = useSelector(store => store.posts);
@@ -38,6 +30,10 @@ const ownerOrNot = () => {
 
         dispatch({type: 'DELETE_PROFILE_POSTS', payload:{postID: post.id, userID: user.id}})
     
+    }
+
+       const favoritePost = (post) => {
+        dispatch({type: 'FAVORITE_POST', payload: post.id})
     }
 
 
@@ -57,7 +53,10 @@ console.log(user)
             <h3>{post.description}</h3>
             <div className="responses">
             <p>{post.favorites} favorites</p>
+            {user.id == id ? (
             <button onClick={() => {deletePost(post)}}>delete</button>
+            ): ( <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
+           
            </div>
            </div>
            <iframe src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>

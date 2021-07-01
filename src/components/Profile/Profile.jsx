@@ -35,21 +35,22 @@ const { id } = useParams();
        const favoritePost = (post) => {
         dispatch({type: 'FAVORITE_PROFILE_POST', payload: post})
     }
-
-
+    // variable for making an
+let examplePost = posts[0]
+console.log(examplePost)
 console.log(posts)
 console.log(user)
 console.log(user)
     return(
         <> 
            <div className="main-feed">
-        <h1>Profile</h1>
+        <h1> {examplePost.username}'s Profile</h1>
         {posts.map(post => {
             return(
                 <>
             {user.id == id ? (
-            <button onClick={() => {deletePost(post)}}>delete</button>
-            ): ( <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
+            <button onClick={() => {deletePost(post)}}>Edit Profile</button>
+            ): ( <button onClick={() => {deletePost(post)}}>Follow Profile</button>)}
 
 
 

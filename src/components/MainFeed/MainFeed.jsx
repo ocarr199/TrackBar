@@ -33,7 +33,6 @@ const goToProfile = (post) => {
     return(
         <div className="main-feed">
         <h1>MainFeed</h1>
-        <p> hi </p>
         {posts.map(post => {
             return(
                 <div className="posts">

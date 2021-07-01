@@ -48,6 +48,9 @@ function Nav() {
         <Link className="navLink" to={`/profile/${user.id}`}>
           Profile
         </Link>
+          <Link className="navLink" to={`/following`}>
+          Following
+        </Link>
       </div>
     </div>
   );

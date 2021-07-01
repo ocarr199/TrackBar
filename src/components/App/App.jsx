@@ -22,6 +22,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import MainFeed from '../MainFeed/MainFeed';
 import CreatePost from '../CreatePost/CreatePost';
 import Profile from '../Profile/Profile';
+import Following from '../Following/Following'
 import './App.css';
 
 function App() {
@@ -133,9 +134,20 @@ function App() {
           >
             <Profile />
           </ProtectedRoute>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows LandingPage at "/home"
+            exact
+            path="/following"
+    
+          >
+            <Following />
+          </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
+          
             <h1>404</h1>
           </Route>
         </Switch>

@@ -45,7 +45,7 @@ function Nav() {
         <Link className="navLink" to="/create">
           Create
         </Link>
-        <Link className="navLink" to="/profile">
+        <Link className="navLink" to={`/profile/${user.id}`}>
           Profile
         </Link>
       </div>

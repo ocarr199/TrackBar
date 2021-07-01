@@ -6,13 +6,16 @@ import  { useEffect } from 'react';
 import {  useSelector } from 'react-redux'
 import Post from '../Post/Post'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import {useParams} from 'react-router-dom'
+
 function Profile () {
     const dispatch = useDispatch();
-
+const { id } = useParams();
     useEffect(() => {
- 
-        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: user.id}})
+        console.log('at profile')
+        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: id}})
       }, []);
+
 
 
         const posts = useSelector(store => store.posts);
@@ -24,7 +27,10 @@ function Profile () {
         console.log("deletePost", post.id)
 
         dispatch({type: 'DELETE_PROFILE_POSTS', payload:{postID: post.id, userID: user.id}})
+    
     }
+
+
 
 
 console.log(user)
@@ -35,12 +41,14 @@ console.log(user)
         {posts.map(post => {
             return(
                 <div className="posts">
-                 <p>@ {post.username} </p>
+                <div>
+                 <div >@ {post.username} </div>
             <h1>Rating: {post.rating}/10</h1>
             <h3>{post.description}</h3>
             <div className="responses">
-            {post.favorites}
+            <p>{post.favorites} favorites</p>
             <button onClick={() => {deletePost(post)}}>delete</button>
+           </div>
            </div>
            <iframe src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
            </div>

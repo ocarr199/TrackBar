@@ -128,7 +128,7 @@ function App() {
             // - if logged in, redirects to "/user"
             // - else shows LandingPage at "/home"
             exact
-            path="/profile"
+            path="/profile/:id"
     
           >
             <Profile />

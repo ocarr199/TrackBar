@@ -15,7 +15,7 @@ const { id } = useParams();
 
         console.log('at profile')
 
-        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: id}})
+        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
       }, []);
 
 
@@ -28,12 +28,12 @@ const { id } = useParams();
     const deletePost = (post) => {
         console.log("deletePost", post.id)
 
-        dispatch({type: 'DELETE_PROFILE_POSTS', payload:{postID: post.id, userID: user.id}})
+        dispatch({type: 'DELETE_PROFILE_POSTS', payload:{post_id: post.id, user_id: user.id}})
     
     }
 
        const favoritePost = (post) => {
-        dispatch({type: 'FAVORITE_POST', payload: post.id})
+        dispatch({type: 'FAVORITE_PROFILE_POST', payload: post})
     }
 
 
@@ -46,6 +46,13 @@ console.log(user)
         <h1>Profile</h1>
         {posts.map(post => {
             return(
+                <>
+            {user.id == id ? (
+            <button onClick={() => {deletePost(post)}}>delete</button>
+            ): ( <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
+
+
+
                 <div className="posts">
                 <div>
                  <div >@ {post.username} </div>
@@ -61,6 +68,7 @@ console.log(user)
            </div>
            <iframe src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
            </div>
+           </>
            )
         })}
        

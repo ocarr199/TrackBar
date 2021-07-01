@@ -28,11 +28,14 @@ const goToProfile = (post) => {
     //  dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: post.user_id}})
         history.push(`/profile/${post.user_id}`)
 }
-
+   const parser = new DOMParser();
+    let iframe = parser
         console.log(posts)
+
     return(
         <div className="main-feed">
         <h1>MainFeed</h1>
+
         {posts.map(post => {
             return(
                 <div className="posts">

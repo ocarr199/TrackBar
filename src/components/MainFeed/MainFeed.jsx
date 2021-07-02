@@ -40,15 +40,16 @@ const goToProfile = (post) => {
             return(
                 <div className="posts">
                 <div>
-                 <div onClick={() => goToProfile(post)}>@ {post.username} </div>
-            <h1>Rating: {post.rating}/10</h1>
-            <h3>{post.description}</h3>
-            <div className="responses">
+                 <div className="info">
+                 <div onClick={() => goToProfile(post)}>@{post.username} </div>
+                 <h1>Rating: {post.rating}/10</h1>
+                <h3>{post.description}</h3>
+       
             <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>
             {post.favorites}
            </div>
            </div>
-           <iframe src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+           <iframe className="player" src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
            </div>
            )
         })}

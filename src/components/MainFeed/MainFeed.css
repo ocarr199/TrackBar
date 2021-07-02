@@ -23,6 +23,14 @@ body {
     margin: 10px;
 
 }
+.posts .player{
+margin-left:65px;
+
+}
+.posts .info{
+margin:15px;
+
+}
 
 .responses{
     display: grid;

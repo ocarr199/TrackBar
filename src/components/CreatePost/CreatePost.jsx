@@ -40,7 +40,8 @@ console.log(user)
 
     const submitPost = event => {
         event.preventDefault();
-        dispatch({ type: 'SEND_POST', payload: {description: description,rating: rating, embed_code: `https://open.spotify.com/embed/track/${embed}`, user_id: user.id}});
+        console.log(embed.slice(50, 72))
+        dispatch({ type: 'SEND_POST', payload: {description: description,rating: rating, embed_code: `https://open.spotify.com/embed/track/${embed.slice(50, 72)}`, user_id: user.id}});
         //updates the next plant to have a new id
         setDescription('');
         setEmbed('');

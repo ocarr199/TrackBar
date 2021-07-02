@@ -45,21 +45,23 @@ console.log(user)
         <> 
            <div className="main-feed">
         <h1> {examplePost.username}'s Profile</h1>
+                 {user.id == id ? (
+            <button onClick={() => {deletePost(post)}}>Edit Profile</button>
+            ): ( <button onClick={() => {deletePost(post)}}>Follow Profile</button>)}
         {posts.map(post => {
             return(
                 <>
-            {user.id == id ? (
-            <button onClick={() => {deletePost(post)}}>Edit Profile</button>
-            ): ( <button onClick={() => {deletePost(post)}}>Follow Profile</button>)}
+   
 
 
 
                 <div className="posts">
                 <div>
+                 <div className="info">
                  <div >@ {post.username} </div>
             <h1>Rating: {post.rating}/10</h1>
             <h3>{post.description}</h3>
-            <div className="responses">
+           
             <p>{post.favorites} favorites</p>
             {user.id == id ? (
             <button onClick={() => {deletePost(post)}}>delete</button>
@@ -67,7 +69,7 @@ console.log(user)
            
            </div>
            </div>
-           <iframe src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+           <iframe  className="player" src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
            </div>
            </>
            )

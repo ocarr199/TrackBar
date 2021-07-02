@@ -53,7 +53,7 @@ return(
     <p>Create Post</p>
     <form onSubmit={submitPost}>
                 <TextField onChange={handleDescriptionChange} value={description} id="outlined-basic" label="Description" variant="outlined" />
-                 <TextField onChange={handleRatingChange} value={rating} id="outlined-basic" label="rating" variant="outlined" />
+                 <TextField onChange={handleRatingChange} value={rating} id="outlined-basic" label="rating"    type="number" variant="outlined" />
                 <TextField onChange={handleEmbedChange} value={embed} id="outlined-basic" label="embed code" variant="outlined" />
 
                 <Button
@@ -61,7 +61,7 @@ return(
                     variant="contained"
                     color="secondary"
                 >
-                    Search
+                    Post
                   </Button>
 
 

@@ -52,7 +52,7 @@ console.log(user)
            <div className="main-feed">
         {/* <h1> {examplePost.username}'s Profile</h1> */}
                  {user.id == id ? (
-            <button >Edit Profile</button>
+            <></>
             ): ( <button onClick={followUser}>Follow Profile</button>)}
         {posts.map(post => {
             return(

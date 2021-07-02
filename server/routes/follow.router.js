@@ -20,7 +20,7 @@ pool.query(postQuery, values)
 
 
 router.get('/', (req, res) => {
-      const query = `SELECT "user".username FROM "following"
+      const query = `SELECT "user".username, "following".followed_user_id AS id FROM "following"
 JOIN "user" ON "user".id = "following".followed_user_id
 WHERE "following".following_user_id = 1;`
   pool.query(query)

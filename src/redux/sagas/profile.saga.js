@@ -37,11 +37,24 @@ import { put, takeLatest } from 'redux-saga/effects';
   }
 
 
+  function* fetchEditProfilePosts(action) {
+    console.log("got to edit, payload is ->", action.payload)
+    try {
+      const editPost = yield axios.get(`/post/edit/${action.payload}`);
+      console.log(editPost.data)
+      yield put({type:'SET_EDIT_POST', payload: editPost.data})
+    } catch (error) {
+      console.log('fetch profile posts failed', error);
+    }
+  }
+
+
 
   
   function* profileSaga() {
     yield takeLatest('FETCH_PROFILE_POSTS', fetchProfilePosts)
         yield takeLatest('DELETE_PROFILE_POSTS', deleteProfilePosts)
+        yield takeLatest('FETCH_EDIT_POST', fetchEditProfilePosts)
         yield takeLatest('FAVORITE_PROFILE_POST', favoriteProfilePostSaga)
   }
   

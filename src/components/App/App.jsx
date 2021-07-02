@@ -23,6 +23,8 @@ import MainFeed from '../MainFeed/MainFeed';
 import CreatePost from '../CreatePost/CreatePost';
 import Profile from '../Profile/Profile';
 import Following from '../Following/Following'
+import EditPost from '../EditPost/EditPost'
+import Comments from '../Comments/Comments'
 import './App.css';
 
 function App() {
@@ -143,6 +145,26 @@ function App() {
     
           >
             <Following />
+          </ProtectedRoute>
+          <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows LandingPage at "/home"
+            exact
+            path="/edit/:id"
+    
+          >
+            <EditPost />
+          </ProtectedRoute>
+           <ProtectedRoute
+            // with authRedirect:
+            // - if logged in, redirects to "/user"
+            // - else shows LandingPage at "/home"
+            exact
+            path="/comments/:id"
+    
+          >
+            <Comments />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}

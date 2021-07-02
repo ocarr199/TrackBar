@@ -1,22 +1,26 @@
-
-import SpotifyWebApi from "spotify-web-api-node"
+import TextField from '@material-ui/core/TextField';
 import axios from "axios"
+import React, {useState}from 'react';
 function Comments() {
-const spotifyApi = new SpotifyWebApi({
-  clientId: "7f0e38633fa247baa942e180af78b033",
-})
-    
+
+    const [currentComment, setCurrentComment] = useState('');
+
+
+const handleCommentChange = (event) => {
+setCurrentComment(event.target.value)
+console.log(currentComment)
+}
+const confirmComment = () => {
+console.log(currentComment)
+}
+
+
     return(
         <>
-          <Card>  
-        <Typography variant="h6" component="h2">
-            {user.username}
-        </Typography>
-
-        <Typography variant="body2" component="h2">
-            BIO GOES HERE 
-        </Typography>
-        </Card>
+  <TextField onChange={handleCommentChange} value={currentComment} id="outlined-basic"  variant="outlined" />
+    <div className="comments">
+    
+    </div>
          </>
     )
 }

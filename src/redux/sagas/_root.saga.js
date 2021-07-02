@@ -6,6 +6,7 @@ import postSaga from './post.saga'
 import profileSaga from './profile.saga'
 import allUsersSaga from './all.users.saga'
 import followSaga from './follow.saga.js'
+import editSaga from './edit.saga'
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
 // This is imported in index.js as rootSaga
@@ -21,6 +22,7 @@ export default function* rootSaga() {
     postSaga(),
     profileSaga(),
     allUsersSaga(),
-    followSaga()
+    followSaga(),
+    editSaga()
   ]);
 }

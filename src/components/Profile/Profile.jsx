@@ -6,15 +6,18 @@ import  { useEffect } from 'react';
 import {  useSelector } from 'react-redux'
 import Post from '../Post/Post'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import {useParams} from 'react-router-dom'
+import {useParams, useHistory } from 'react-router-dom'
+
 
 function Profile () {
     const dispatch = useDispatch();
+      let history = useHistory();
+
 const { id } = useParams();
     useEffect(() => {
 
         console.log('at profile')
-
+    
         dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
       }, []);
 
@@ -27,12 +30,21 @@ const { id } = useParams();
 
     const deletePost = (post) => {
         console.log("deletePost", post.id)
-
         dispatch({type: 'DELETE_PROFILE_POSTS', payload:{post_id: post.id, user_id: user.id}})
-    
     }
 
-       const favoritePost = (post) => {
+
+    const editPost = (post) => {
+        console.log("deletePost", post.id)
+        history.push(`/edit/${post.id}`)
+        
+
+    //  dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: post.user_id}})
+
+
+    }
+
+    const favoritePost = (post) => {
         dispatch({type: 'FAVORITE_PROFILE_POST', payload: post})
     }
 
@@ -71,7 +83,7 @@ console.log(user)
             <p>{post.favorites} favorites</p>
             {user.id == id ? (<div>
             <div>   
-             <button onClick={() => {deletePost(post)}}>Edit</button>
+             <button onClick={() => {editPost(post)}}>Edit</button>
             </div>  
               <div>
             <button onClick={() => {deletePost(post)}}>Delete</button>

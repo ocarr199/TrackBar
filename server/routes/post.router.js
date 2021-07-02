@@ -38,6 +38,23 @@ router.get('/profile/:id', (req, res) => {
 
 })
 
+router.get('/edit/:id', (req, res) => {
+  const postID = req.params.id
+  console.log(postID)
+  const query = `SELECT * FROM "post"
+                  WHERE "post".id = $1;`
+  pool.query(query, [postID])
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.error("ERROR in getting specific post", err);
+      res.sendStatus(500)
+    })
+
+
+})
+
 router.delete('/profile/:id', (req, res) => {
   const postID = req.params.id
   console.log(postID)
@@ -105,6 +122,23 @@ router.put('/favorite/:id', (req, res) => {
         })
 });
 
+router.put('/edit', (req, res) => {
+    // recieve post id
+    const editedPost = req.body
+    console.log("edited post data is -> ",editedPost)
+    //   add 1 to likes where the id = galleryId
+    const queryText = `
+    UPDATE "post" SET "description" = $1, "rating" = $2
+     WHERE "id" = $3 ;
+`;
+    pool.query(queryText, [editedPost.description, editedPost.rating, editedPost.id ])
+        .then(result => {
+            res.sendStatus(200)
+        }).catch(err => {
+            console.log(err)
+            res.sendStatus(500)
+        })
+});
 
 
 

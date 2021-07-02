@@ -28,8 +28,12 @@ const goToProfile = (post) => {
     //  dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: post.user_id}})
         history.push(`/profile/${post.user_id}`)
 }
-   const parser = new DOMParser();
-    let iframe = parser
+
+const goToComments = (post) => {
+    console.log("going to comments")
+    history.push(`/comments/${post.id}`)
+}
+
         console.log(posts)
 
     return(
@@ -47,6 +51,9 @@ const goToProfile = (post) => {
        
             <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>
             {post.favorites}
+            <div>
+            <button onClick={() => goToComments(post)}>comments</button>
+            </div>
            </div>
            </div>
            <iframe className="player" src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>

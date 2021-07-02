@@ -15,9 +15,7 @@ function Profile () {
 
 const { id } = useParams();
     useEffect(() => {
-
         console.log('at profile')
-    
         dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
       }, []);
 

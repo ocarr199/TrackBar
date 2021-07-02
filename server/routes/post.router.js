@@ -106,6 +106,41 @@ pool.query(postQuery, values)
 
 })
 
+
+router.post('/comment', (req, res) => {
+  console.log('this is the req.body', req.body);
+const postQuery = `INSERT INTO "comments" ("post_id", "user_id", "comment" )
+                   VALUES ($1, $2, $3);`
+
+const values = [req.body.post_id, req.body.user_id, req.body.comment]
+pool.query(postQuery, values)
+  .then(result => {
+      res.sendStatus(201)
+  }).catch(err => {
+    console.error(err)
+    res.sendStatus(500)
+  })
+
+})
+
+router.get('/comment/:id', (req, res) => {
+  const postID = req.params.id
+  console.log(postID)
+  const query = `SELECT * , "user".username FROM "comments"
+                  JOIN "user" ON "comments".user_id = "user".id
+                  WHERE "comments".post_id = $1;`
+  pool.query(query, [postID])
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.error("ERROR in getting specific post", err);
+      res.sendStatus(500)
+    })
+
+
+})
+
 router.put('/favorite/:id', (req, res) => {
     // recieve post id
     const postId = req.params.id;

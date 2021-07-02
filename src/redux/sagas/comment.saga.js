@@ -6,7 +6,7 @@ function* confirmCommentSaga(action) {
       console.log(action.payload)
     try {
      yield axios.post(`post/comment`, action.payload);
-   
+   yield put ({type: 'FETCH_COMMENTS'})
     } catch (error) {
       console.log('post song stuff failed', error);
     }

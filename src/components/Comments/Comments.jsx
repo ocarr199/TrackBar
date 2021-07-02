@@ -26,8 +26,9 @@ console.log(currentComment)
 }
 const confirmComment = () => {
 console.log(currentComment)
-dispatch({type: "CONFIRM_COMMENT", payload: {post_id: id,user_id: user.id, comment:currentComment  }})
- dispatch({type: 'FETCH_COMMENTS', payload:{post_id: id}})
+ dispatch({type: "CONFIRM_COMMENT", payload: {post_id: id, user_id: user.id, comment:currentComment  }})
+ location.reload()
+//  dispatch({type: 'FETCH_COMMENTS', payload:{post_id: id}})
 }
 
 const goBack = () => {
@@ -41,7 +42,12 @@ const goBack = () => {
     <>
     <p>Create Post</p>
     <form onSubmit={confirmComment}>
-                <TextField onChange={handleCommentChange} value={currentComment} id="outlined-basic" label="Description" variant="outlined" />
+                <TextField 
+                onChange={handleCommentChange}
+                 value={currentComment} 
+                 id="outlined-basic" 
+                 label="Description"
+                 variant="outlined" />
 
                 <Button
                     type="submit"

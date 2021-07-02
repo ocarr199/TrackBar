@@ -47,7 +47,7 @@ const goToComments = (post) => {
                  <div className="info">
                  <div onClick={() => goToProfile(post)}>@{post.username} </div>
                  <h1>Rating: {post.rating}/10</h1>
-                <h3>{post.description}</h3>
+                <p>{post.description}</p>
        
             <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>
             {post.favorites}

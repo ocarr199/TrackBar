@@ -35,6 +35,12 @@ const { id } = useParams();
        const favoritePost = (post) => {
         dispatch({type: 'FAVORITE_PROFILE_POST', payload: post})
     }
+
+
+    const followUser = () => {
+        console.log("in follow User")
+        dispatch({type : 'FOLLOW_USER', payload: {following_user_id: user.id, followed_user_id: id }})
+    }
     // variable for making an
 let examplePost = posts[0]
 console.log(examplePost)
@@ -44,10 +50,10 @@ console.log(user)
     return(
         <> 
            <div className="main-feed">
-        <h1> {examplePost.username}'s Profile</h1>
+        {/* <h1> {examplePost.username}'s Profile</h1> */}
                  {user.id == id ? (
-            <button onClick={() => {deletePost(post)}}>Edit Profile</button>
-            ): ( <button onClick={() => {deletePost(post)}}>Follow Profile</button>)}
+            <button >Edit Profile</button>
+            ): ( <button onClick={followUser}>Follow Profile</button>)}
         {posts.map(post => {
             return(
                 <>

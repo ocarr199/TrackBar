@@ -69,8 +69,14 @@ console.log(user)
             <h3>{post.description}</h3>
            
             <p>{post.favorites} favorites</p>
-            {user.id == id ? (
-            <button onClick={() => {deletePost(post)}}>delete</button>
+            {user.id == id ? (<div>
+            <div>   
+             <button onClick={() => {deletePost(post)}}>Edit</button>
+            </div>  
+              <div>
+            <button onClick={() => {deletePost(post)}}>Delete</button>
+            </div>
+            </div>
             ): ( <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
            
            </div>

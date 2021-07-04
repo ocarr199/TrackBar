@@ -12,6 +12,18 @@ import { put, takeLatest } from 'redux-saga/effects';
     }
   }
 
+   function* fetchFollowers(action) {
+    console.log("got to fetchProfile payload id ->", action.payload)
+    try {
+      const followersObject = yield axios.get(`/post/followers/${action.payload.user_id}`);
+      const followersArray = followersObject.data[0].followers
+      // console.log(followersArray)
+      yield put({type:'SET_FOLLOWERS', payload: followersArray})
+    } catch (error) {
+      console.log('fetch profile posts failed', error);
+    }
+  }
+
 
   function* fetchProfilePosts(action) {
     console.log("got to fetchProfilePosts payload id ->", action.payload)
@@ -68,6 +80,7 @@ import { put, takeLatest } from 'redux-saga/effects';
         yield takeLatest('DELETE_PROFILE_POSTS', deleteProfilePosts)
         yield takeLatest('FETCH_EDIT_POST', fetchEditProfilePosts)
         yield takeLatest('FAVORITE_PROFILE_POST', favoriteProfilePostSaga)
+        yield takeLatest('FETCH_PROFILE_FOLLOWERS', fetchFollowers)
   }
   
   export default profileSaga;

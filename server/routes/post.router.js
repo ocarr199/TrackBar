@@ -22,10 +22,29 @@ router.get('/', (req, res) => {
 router.get('/profileUser/:id', (req, res) => {
   const userID = req.params.id
   console.log("user profile id", userID)
-  const query = `SELECT "user".id,"user".username, ARRAY_AGG("following".following_user_id) AS "followers" FROM "user"
+  const query = `SELECT "user".id,"user".username FROM "user"
+WHERE "user".id = $1;`
+  pool.query(query, [userID])
+  
+    .then( result => {
+      res.send(result.rows);
+    })
+    .catch(err => {
+      console.error("ERROR in post get", err);
+      res.sendStatus(500)
+    })
+
+
+})
+
+
+router.get('/followers/:id', (req, res) => {
+  const userID = req.params.id
+  console.log("user profile id", userID)
+  const query = ` SELECT "user".username, ARRAY_AGG("following".following_user_id) AS "followers" FROM "user"
 JOIN "following" ON  "following".followed_user_id = "user".id 
 WHERE "user".id = $1
-GROUP BY "user".id
+GROUP BY "user".username
 ;`
   pool.query(query, [userID])
   

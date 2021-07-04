@@ -14,11 +14,12 @@ function Profile () {
     const dispatch = useDispatch();
       let history = useHistory();
 // local state
-      const [follower, setFollower] =useState(false)
+      const [userFollowProfile, setUserFollowsProfile] =useState(false)
 // redux state
         const posts = useSelector(store => store.posts);
         const user = useSelector(store => store.user)
         const profile = useSelector(store => store.profile)
+        const followers = useSelector(store=> store.followers)
      const following = useSelector(store => store.followReducer)
 const { id } = useParams();
 // 
@@ -33,9 +34,14 @@ const { id } = useParams();
     useEffect(() => {
         console.log('at profile')
         dispatch({type: 'FETCH_PROFILE', payload:{user_id: id}})
-        // dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
-      }, []);
+        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
+        dispatch({type:"FETCH_PROFILE_FOLLOWERS", payload:{user_id: id}})
+        console.log(followers?.includes(1))
 
+      }, []);
+      console.log("user -> ", user)
+
+        console.log("user follows profile?", userFollowProfile)
 
 
        
@@ -59,14 +65,13 @@ const { id } = useParams();
     const followUser = () => {
         console.log("in follow User")
         dispatch({type : 'FOLLOW_USER', payload: {following_user_id: user.id, followed_user_id: id }})
-        console.log(follower)
     }
 
 const goToComments = (post) => {
     console.log("going to comments")
     history.push(`/comments/${post.id}`)
 }
-
+       console.log("followers from reducer", followers)
     // variable for making an
 // console.log("who i am following",following)
 // console.log(posts[0]?.user_id)

@@ -18,32 +18,34 @@ function Profile () {
 // redux state
         const posts = useSelector(store => store.posts);
         const user = useSelector(store => store.user)
+        const profile = useSelector(store => store.profile)
      const following = useSelector(store => store.followReducer)
 const { id } = useParams();
+// 
+    // useEffect(() => {
+    //     dispatch({type:'FETCH_FOLLOWING'})
+    //     console.log(following)
+    // //    let isFollowing = following.some(follow => follow.id  = po)
+    //    console.log(follower)
 
-    useEffect(() => {
-        dispatch({type:'FETCH_FOLLOWING'})
-        console.log(following)
-    //    let isFollowing = following.some(follow => follow.id  = po)
-       console.log(follower)
-
-      }, []);
-
+    //   }, []);
+//  run on load to fetch posts for that profile
     useEffect(() => {
         console.log('at profile')
-        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
+        dispatch({type: 'FETCH_PROFILE', payload:{user_id: id}})
+        // dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
       }, []);
 
 
 
        
-
+// deletes post from DB
     const deletePost = (post) => {
         console.log("deletePost", post.id)
         dispatch({type: 'DELETE_PROFILE_POSTS', payload:{post_id: post.id, user_id: user.id}})
     }
 
-
+// brings user to edit page for that post
     const editPost = (post) => {
         console.log("deletePost", post.id)
         history.push(`/edit/${post.id}`)
@@ -76,7 +78,7 @@ const goToComments = (post) => {
     return(
         <> 
            <div className="main-feed">
-        {/* <h1> {examplePost.username}'s Profile</h1> */}
+        <h1> {profile.username}'s Profile</h1>
                  {user.id == id ? (
             <></>
             ): ( <button onClick={followUser}>Follow Profile</button>)}
@@ -92,7 +94,7 @@ const goToComments = (post) => {
                  <div className="info">
                  <div >@ {post.username} </div>
             <h1>Rating: {post.rating}/10</h1>
-            <h3>{post.description}</h3>
+            <p>{post.description}</p>
            
             <p>{post.favorites} favorites</p>
             {user.id == id ? (<div>

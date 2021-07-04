@@ -34,9 +34,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 
   function* followSaga() {
     yield takeLatest('FOLLOW_USER', followUserSaga);
-        yield takeLatest('FETCH_FOLLOWING', fetchFollowingSaga);
-
-
+    yield takeLatest('FETCH_FOLLOWING', fetchFollowingSaga);
   }
   
   export default followSaga;

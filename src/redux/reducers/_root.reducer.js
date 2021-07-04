@@ -6,6 +6,7 @@ import allUsers from './all.users.reducer'
 import followReducer from './follow.reducer'
 import editPost from './edit.reducer'
 import allComments from './comments.reducer'
+import profile from './profile.reducer'
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   allUsers,
   followReducer, 
   editPost,
-  allComments
+  allComments,
+  profile
 });
 
 export default rootReducer;

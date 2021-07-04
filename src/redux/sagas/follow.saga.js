@@ -20,7 +20,6 @@ import { put, takeLatest } from 'redux-saga/effects';
   function* fetchFollowingSaga(action) {
     console.log("fetch following ")
      try {
-         console.log(action.payload)
      const following = yield axios.get(`/follow`);
      console.log(following.data)
       yield put({type:'SET_FOLLOWING', payload: following.data})

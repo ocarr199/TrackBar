@@ -6,7 +6,7 @@ const axios = require('axios');
 router.get('/', (req, res) => {
   const query = `SELECT *,"post".id, "user".username FROM "post"
                   JOIN "user" ON "post".user_id = "user".id
-                  ORDER BY "favorites" DESC;`
+                  ORDER BY "time_posted" DESC;`
   pool.query(query)
     .then( result => {
 
@@ -25,7 +25,8 @@ router.get('/profile/:id', (req, res) => {
   console.log(userID)
   const query = `SELECT *,"post".id, "user".username FROM "post"
                   JOIN "user" ON "post".user_id = "user".id
-                  WHERE "post".user_id = $1;`
+                  WHERE "post".user_id = $1
+                  ORDER BY "time_posted" DESC;`
   pool.query(query, [userID])
     .then( result => {
       res.send(result.rows);

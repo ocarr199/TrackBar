@@ -17,6 +17,7 @@ const { id } = useParams();
     useEffect(() => {
         console.log('at comments')
         dispatch({type: 'FETCH_COMMENTS', payload:{post_id: id}})
+      
       }, []);
 
 
@@ -35,6 +36,10 @@ const goBack = () => {
   history.goBack()
 }
 
+const goToProfile = (comment) => {
+    //  dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: post.user_id}})
+        history.push(`/profile/${comment.user_id}`)
+}
 
 
 
@@ -70,7 +75,7 @@ const goBack = () => {
             {allComments.map(comment => {
             return(
              <div className="commentDiv">
-             <p>{comment.username}</p>
+             <p onClick={() => goToProfile(comment)}>@{comment.username}</p>
                 <p>{comment.comment}</p>
              </div>
            )

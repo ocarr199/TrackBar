@@ -1,7 +1,8 @@
-import React from 'react';
+
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { useDispatch } from 'react-redux';
+import React, {useState}from 'react';
 import  { useEffect } from 'react';
 import {  useSelector } from 'react-redux'
 import Post from '../Post/Post'
@@ -12,8 +13,22 @@ import {useParams, useHistory } from 'react-router-dom'
 function Profile () {
     const dispatch = useDispatch();
       let history = useHistory();
-
+// local state
+      const [follower, setFollower] =useState(false)
+// redux state
+        const posts = useSelector(store => store.posts);
+        const user = useSelector(store => store.user)
+     const following = useSelector(store => store.followReducer)
 const { id } = useParams();
+
+    useEffect(() => {
+        dispatch({type:'FETCH_FOLLOWING'})
+        console.log(following)
+    //    let isFollowing = following.some(follow => follow.id  = po)
+       console.log(follower)
+
+      }, []);
+
     useEffect(() => {
         console.log('at profile')
         dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
@@ -21,10 +36,7 @@ const { id } = useParams();
 
 
 
-        const posts = useSelector(store => store.posts);
-        const user = useSelector(store => store.user)
-
-        console.log(user.id)
+       
 
     const deletePost = (post) => {
         console.log("deletePost", post.id)
@@ -35,11 +47,6 @@ const { id } = useParams();
     const editPost = (post) => {
         console.log("deletePost", post.id)
         history.push(`/edit/${post.id}`)
-        
-
-    //  dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: post.user_id}})
-
-
     }
 
     const favoritePost = (post) => {
@@ -50,13 +57,22 @@ const { id } = useParams();
     const followUser = () => {
         console.log("in follow User")
         dispatch({type : 'FOLLOW_USER', payload: {following_user_id: user.id, followed_user_id: id }})
+        console.log(follower)
     }
+
+const goToComments = (post) => {
+    console.log("going to comments")
+    history.push(`/comments/${post.id}`)
+}
+
     // variable for making an
-let examplePost = posts[0]
-console.log(examplePost)
-console.log(posts)
-console.log(user)
-console.log(user)
+// console.log("who i am following",following)
+// console.log(posts[0]?.user_id)
+// console.log("follower?", follower)
+// console.log("following includes", following.includes({id: 2}))
+// console.log(posts)
+// console.log(user)
+// console.log(user)
     return(
         <> 
            <div className="main-feed">
@@ -88,8 +104,9 @@ console.log(user)
             </div>
             </div>
             ): ( <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
-           
+                     <button onClick={() => goToComments(post)}>comments</button>
            </div>
+  
            </div>
            <iframe  className="player" src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
            </div>

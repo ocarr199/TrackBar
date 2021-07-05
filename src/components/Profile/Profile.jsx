@@ -63,6 +63,11 @@ function Profile () {
         dispatch({type : 'FOLLOW_USER', payload: {following_user_id: user.id, followed_user_id: id }})
     }
 
+   const unfollowUser = () => {
+       
+   }
+
+
 const goToComments = (post) => {
     console.log("going to comments")
     history.push(`/comments/${post.id}`)
@@ -72,33 +77,23 @@ const followersIncludes = followers?.includes(user.id)
     console.log("followers array, ", followers)
     console.log("I follow?",followersIncludes)
     console.log("I follow? without local state ",followers?.includes(user.id))
+    console.log("user id", user.id)
+    console.log("id", id)
     return(
         <> 
            <div className="main-feed">
         <h1> {profile.username}'s Profile</h1>
-        {/* {followersIncludes ? <p>unfollow</p> : <p>follow</p>} */}
+        {user.id == id ?<></>: followersIncludes ? <button onClick={unfollowUser}>Unfollow</button>: <button onClick={followUser}>Follow</button>}
          {/* {user.id == id ? 
-         ( <></>): 
-        ( <button onClick={followUser}>Follow Profile</button>):
+         ( ): 
+        ( ):
         userFollowProfile ? : (<></>)
         } */}
-        {() => {
-            if(user.id == id ){
-                return (<p>my profile</p>)
-            }else if (followersIncludes == true){
-                return(<p>unfollow button</p>)
-            }else if (followersIncludes == false){
-                return(<button onClick={followUser}>Follow Profile</button>)
-            }
 
-        }}
         {posts.map(post => {
             return(
                 <>
    
-
-
-
                 <div className="posts">
                 <div>
                  <div className="info">

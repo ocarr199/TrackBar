@@ -41,14 +41,14 @@ WHERE "user".id = $1;`
 router.get('/followers/:id', (req, res) => {
   const userID = req.params.id
   console.log("user profile id", userID)
-  const query = ` SELECT "user".username, ARRAY_AGG("following".following_user_id) AS "followers" FROM "user"
-JOIN "following" ON  "following".followed_user_id = "user".id 
+  const query = `SELECT "following".following_user_id  FROM "user"
+JOIN "following" ON "following".followed_user_id = "user".id 
 WHERE "user".id = $1
-GROUP BY "user".username
-;`
+GROUP BY "following".following_user_id ;`
   pool.query(query, [userID])
   
     .then( result => {
+      console.log(result.rows)
       res.send(result.rows);
     })
     .catch(err => {

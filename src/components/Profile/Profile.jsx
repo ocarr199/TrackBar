@@ -12,16 +12,16 @@ import {useParams, useHistory } from 'react-router-dom'
 
 function Profile () {
     const dispatch = useDispatch();
-      let history = useHistory();
-// local state
-      const [userFollowProfile, setUserFollowsProfile] =useState(false)
+    let history = useHistory();
+    const { id } = useParams();
+
 // redux state
         const posts = useSelector(store => store.posts);
         const user = useSelector(store => store.user)
         const profile = useSelector(store => store.profile)
         const followers = useSelector(store=> store.followers)
-     const following = useSelector(store => store.followReducer)
-const { id } = useParams();
+        const following = useSelector(store => store.followReducer)
+      
 // 
     // useEffect(() => {
     //     dispatch({type:'FETCH_FOLLOWING'})
@@ -31,19 +31,15 @@ const { id } = useParams();
 
     //   }, []);
 //  run on load to fetch posts for that profile
-    useEffect(() => {
+    useEffect( () => {
+        console.log()
         console.log('at profile')
+        dispatch({type:"FETCH_PROFILE_FOLLOWERS", payload:{user_id: id}})
         dispatch({type: 'FETCH_PROFILE', payload:{user_id: id}})
         dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
-        dispatch({type:"FETCH_PROFILE_FOLLOWERS", payload:{user_id: id}})
-        console.log(followers?.includes(1))
-
+   
       }, []);
-      console.log("user -> ", user)
-
-        console.log("user follows profile?", userFollowProfile)
-
-
+        
        
 // deletes post from DB
     const deletePost = (post) => {
@@ -71,22 +67,31 @@ const goToComments = (post) => {
     console.log("going to comments")
     history.push(`/comments/${post.id}`)
 }
-       console.log("followers from reducer", followers)
-    // variable for making an
-// console.log("who i am following",following)
-// console.log(posts[0]?.user_id)
-// console.log("follower?", follower)
-// console.log("following includes", following.includes({id: 2}))
-// console.log(posts)
-// console.log(user)
-// console.log(user)
+const followersIncludes = followers?.includes(user.id)
+    // setUserFollowsProfile(followers?.includes(user.id))
+    console.log("followers array, ", followers)
+    console.log("I follow?",followersIncludes)
+    console.log("I follow? without local state ",followers?.includes(user.id))
     return(
         <> 
            <div className="main-feed">
         <h1> {profile.username}'s Profile</h1>
-                 {user.id == id ? (
-            <></>
-            ): ( <button onClick={followUser}>Follow Profile</button>)}
+        {/* {followersIncludes ? <p>unfollow</p> : <p>follow</p>} */}
+         {/* {user.id == id ? 
+         ( <></>): 
+        ( <button onClick={followUser}>Follow Profile</button>):
+        userFollowProfile ? : (<></>)
+        } */}
+        {() => {
+            if(user.id == id ){
+                return (<p>my profile</p>)
+            }else if (followersIncludes == true){
+                return(<p>unfollow button</p>)
+            }else if (followersIncludes == false){
+                return(<button onClick={followUser}>Follow Profile</button>)
+            }
+
+        }}
         {posts.map(post => {
             return(
                 <>

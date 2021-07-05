@@ -16,8 +16,10 @@ import { put, takeLatest } from 'redux-saga/effects';
     console.log("got to fetchProfile payload id ->", action.payload)
     try {
       const followersObject = yield axios.get(`/post/followers/${action.payload.user_id}`);
-      const followersArray = followersObject.data[0].followers
-      // console.log(followersArray)
+      const followersArray = followersObject.data.map(object => {
+        return( object.following_user_id)
+      })
+      console.log("followersArray", followersArray)
       yield put({type:'SET_FOLLOWERS', payload: followersArray})
     } catch (error) {
       console.log('fetch profile posts failed', error);

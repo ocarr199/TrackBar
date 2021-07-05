@@ -59,18 +59,21 @@ function Profile () {
 
 const followersIncludes = followers?.includes(user.id)
 
+// creates row in following table where accounts are linked
+// follows user
     const followUser = () => {
         console.log("in follow User")
         dispatch({type : 'FOLLOW_USER', payload: {following_user_id: user.id, followed_user_id: id }})
-
+        location.reload()
      console.log(followersIncludes)
     }
 
+// deletes row from following table where accounts are linked
+// unfollows user
    const unfollowUser = () => {
        console.log("in unfollow user")
         dispatch({type : 'UNFOLLOW', payload: {following_user_id: user.id, followed_user_id: id }})
-
-   console.log(followersIncludes)
+        location.reload()
    }
 
 

@@ -17,10 +17,10 @@ import { put, takeLatest } from 'redux-saga/effects';
   }
 
    function* unfollowUserSaga(action) {
-    console.log("got to fetch all users saga")
+    console.log("got tounfollow saga")
      try {
          console.log('action payload unfollow saga', action.payload)
-      yield axios.delete(`/follow`, action.payload);
+      yield axios.delete(`/follow`, {data: action.payload})
     //   yield put({type:'SET_USERS', payload: allUsers.data})
     } catch (error) {
       console.log('fetch all users saga error -> ', error);

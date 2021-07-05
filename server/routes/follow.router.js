@@ -19,9 +19,11 @@ pool.query(postQuery, values)
 })
 
 router.delete('/', (req, res) => {
-  console.log(req.body)
+  console.log('got to delete router')
+  console.log(req.data)
 const postQuery = `DELETE FROM "following" WHERE "following_user_id" = $1 AND "followed_user_id" = $2;`
 const values = [req.body.following_user_id, req.body.followed_user_id]
+console.log(values)
 pool.query(postQuery, values)
   .then(result => {
       res.sendStatus(201)

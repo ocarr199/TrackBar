@@ -57,14 +57,20 @@ function Profile () {
         dispatch({type: 'FAVORITE_PROFILE_POST', payload: post})
     }
 
+const followersIncludes = followers?.includes(user.id)
 
     const followUser = () => {
         console.log("in follow User")
         dispatch({type : 'FOLLOW_USER', payload: {following_user_id: user.id, followed_user_id: id }})
+
+     console.log(followersIncludes)
     }
 
    const unfollowUser = () => {
-       
+       console.log("in unfollow user")
+        dispatch({type : 'UNFOLLOW', payload: {following_user_id: user.id, followed_user_id: id }})
+
+   console.log(followersIncludes)
    }
 
 
@@ -72,7 +78,7 @@ const goToComments = (post) => {
     console.log("going to comments")
     history.push(`/comments/${post.id}`)
 }
-const followersIncludes = followers?.includes(user.id)
+
     // setUserFollowsProfile(followers?.includes(user.id))
     console.log("followers array, ", followers)
     console.log("I follow?",followersIncludes)

@@ -16,6 +16,17 @@ import { put, takeLatest } from 'redux-saga/effects';
     }
   }
 
+   function* unfollowUserSaga(action) {
+    console.log("got to fetch all users saga")
+     try {
+         console.log('action payload unfollow saga', action.payload)
+      yield axios.delete(`/follow`, action.payload);
+    //   yield put({type:'SET_USERS', payload: allUsers.data})
+    } catch (error) {
+      console.log('fetch all users saga error -> ', error);
+    }
+  }
+
      
   function* fetchFollowingSaga(action) {
     console.log("fetch following ")
@@ -35,6 +46,7 @@ import { put, takeLatest } from 'redux-saga/effects';
   function* followSaga() {
     yield takeLatest('FOLLOW_USER', followUserSaga);
     yield takeLatest('FETCH_FOLLOWING', fetchFollowingSaga);
+    yield takeLatest('UNFOLLOW', unfollowUserSaga)
   }
   
   export default followSaga;

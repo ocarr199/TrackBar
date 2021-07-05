@@ -18,6 +18,20 @@ pool.query(postQuery, values)
 
 })
 
+router.delete('/', (req, res) => {
+  console.log(req.body)
+const postQuery = `DELETE FROM "following" WHERE "following_user_id" = $1 AND "followed_user_id" = $2;`
+const values = [req.body.following_user_id, req.body.followed_user_id]
+pool.query(postQuery, values)
+  .then(result => {
+      res.sendStatus(201)
+  }).catch(err => {
+    console.error(err)
+    res.sendStatus(500)
+  })
+
+})
+
 
 router.get('/', (req, res) => {
       const query = `SELECT "user".username, "following".followed_user_id AS id FROM "following"

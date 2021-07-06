@@ -12,13 +12,14 @@ function MainFeed() {
     useEffect(() => {
         // retrieving all posts ever made on app for now (want to make it all posts made by people you follow)
         dispatch({ type: 'FETCH_POSTS' });
+        dispatch({type:'FETCH_FOLLOWING', payload: user.id })
     }, []);
         // state from redux
         // posts
         const posts = useSelector(store => store.posts);
         // current user
         const user = useSelector(store => store.user)
-
+        const following = useSelector(store => store.followReducer)
     // function to like a post
     const favoritePost = (post) => {
         dispatch({type: 'FAVORITE_POST', payload: post.id})
@@ -36,12 +37,15 @@ const goToComments = (post) => {
 }
 
         console.log(posts)
+        console.log(following)
+        const followingIDs = following.map(follow => follow.id)
+        console.log(followingIDs)
 
     return(
         <div className="main-feed">
         <h1>MainFeed</h1>
 
-        {posts.map(post => {
+        {posts.filter((post) => followingIDs.includes(post.user_id)).map(post => {
             return(
                 <div className="posts">
                 <div>

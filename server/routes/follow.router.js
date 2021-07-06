@@ -35,11 +35,12 @@ pool.query(postQuery, values)
 })
 
 
-router.get('/', (req, res) => {
+router.get('/:id', (req, res) => {
+  userID = req.params.id 
       const query = `SELECT "user".username, "following".followed_user_id AS id FROM "following"
 JOIN "user" ON "user".id = "following".followed_user_id
-WHERE "following".following_user_id = 1;`
-  pool.query(query)
+WHERE "following".following_user_id = $1;`
+  pool.query(query,[userID])
     .then( result => {
 
       res.send(result.rows);

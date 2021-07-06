@@ -82,12 +82,6 @@ const goToComments = (post) => {
     history.push(`/comments/${post.id}`)
 }
 
-    // setUserFollowsProfile(followers?.includes(user.id))
-    console.log("followers array, ", followers)
-    console.log("I follow?",followersIncludes)
-    console.log("I follow? without local state ",followers?.includes(user.id))
-    console.log("user id", user.id)
-    console.log("id", id)
     return(
         <> 
            <div className="main-feed">

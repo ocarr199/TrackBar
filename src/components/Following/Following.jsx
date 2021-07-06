@@ -10,12 +10,12 @@ function Following () {
     let [userSearch, setUserSearch]=useState('')
 
         const followingList = useSelector(store => store.followReducer)
-
+        const user = useSelector(store => store.user)
     useEffect(() => {
         // run the sagas for FETCH_MOVIES and FETCH_GENRES on load
         dispatch({ type: 'FETCH_USERS' });
         // dispatch({type: 'FETCH_FAVORITES'})
-        dispatch({type:'FETCH_FOLLOWING'})
+        dispatch({type:'FETCH_FOLLOWING', payload: user.id })
     }, []);
    const  handleSearchChange = (event) => {
        setUserSearch(event.target.value)

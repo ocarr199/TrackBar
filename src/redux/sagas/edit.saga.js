@@ -8,7 +8,7 @@ import { put, takeLatest } from 'redux-saga/effects';
     console.log("got confirm edit", action.payload)
     try {
    yield axios.put(`post/edit`, action.payload);
-       yield put ({type: 'FETCH_POSTS'})
+       yield put ({type: 'FETCH_PROFILE_POSTS'})
     } catch (error) {
       console.log('post song stuff failed', error);
     }

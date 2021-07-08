@@ -46,7 +46,7 @@ WHERE "following".following_user_id = $1;`
       res.send(result.rows);
     })
     .catch(err => {
-      console.error("ERROR in post get", err);
+      console.error("ERROR in fetch user following router", err);
       res.sendStatus(500)
     })
 

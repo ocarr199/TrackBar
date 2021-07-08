@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const postRouter = require('./routes/post.router')
 const allUsersRouter = require('./routes/all.users.router')
 const followRouter = require('./routes/follow.router')
+const spotifyRouter = require('./routes/spotify.router')
 // Body parser middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,6 +29,7 @@ app.use('/api/user', userRouter);
 app.use('/post', postRouter);
 app.use('/allUsers', allUsersRouter);
 app.use('/follow', followRouter);
+app.use('/spotifyLogin', spotifyRouter)
 
 // Serve static files
 app.use(express.static('build'));

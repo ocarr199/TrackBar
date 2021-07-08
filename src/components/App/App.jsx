@@ -27,6 +27,8 @@ import EditPost from '../EditPost/EditPost'
 import Comments from '../Comments/Comments'
 import './App.css';
 
+
+const code = new URLSearchParams(window.location.search).get('code')
 function App() {
   const dispatch = useDispatch();
 
@@ -80,7 +82,7 @@ function App() {
             // - else shows LoginPage at /login
             exact
             path="/login"
-            authRedirect="/user"
+            authRedirect="/feed"
           >
             <LoginPage />
           </ProtectedRoute>
@@ -124,7 +126,7 @@ function App() {
             path="/create"
     
           >
-            <CreatePost />
+            <CreatePost code={code} />
           </ProtectedRoute>
           <ProtectedRoute
             // with authRedirect:

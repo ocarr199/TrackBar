@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import {useHistory} from 'react-router-dom'
+import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import './MainFeed.css'
 function MainFeed() {
 // initializing packages
@@ -11,14 +12,18 @@ function MainFeed() {
 // code to run on load
     useEffect(() => {
         // retrieving all posts ever made on app for now (want to make it all posts made by people you follow)
+        // sets the posts state in redux
         dispatch({ type: 'FETCH_POSTS' });
+        // fetching all the people that the current logged in user is following
+        // sets the following state in redux
         dispatch({type:'FETCH_FOLLOWING', payload: user.id })
     }, []);
         // state from redux
-        // posts
+        // posts 
         const posts = useSelector(store => store.posts);
         // current user
         const user = useSelector(store => store.user)
+        // wh the current user follows
         const following = useSelector(store => store.followReducer)
     // function to like a post
     const favoritePost = (post) => {
@@ -27,7 +32,7 @@ function MainFeed() {
 
 // function to be brought to a profile
 const goToProfile = (post) => {
-    //  dispatch({type: 'FETCH_PROFILE_POSTS', payload:{userID: post.user_id}})
+        // goes to the profile with the same user id of the post you clicked on
         history.push(`/profile/${post.user_id}`)
 }
 // function to be brought to that post's comments page
@@ -36,15 +41,13 @@ const goToComments = (post) => {
     history.push(`/comments/${post.id}`)
 }
 
-        console.log(posts)
-        console.log(following)
-        const followingIDs = following.map(follow => follow.id)
-        console.log(followingIDs)
 
+        // just getting the ids from the following array
+        const followingIDs = following.map(follow => follow.id)
     return(
         <div className="main-feed">
         <h1>MainFeed</h1>
-
+        {/* filter posts to just show posts from people you are */}
         {posts.filter((post) => followingIDs.includes(post.user_id)).map(post => {
             return(
                 <div className="posts">
@@ -57,7 +60,8 @@ const goToComments = (post) => {
             <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>
             {post.favorites}
             <div>
-            <button onClick={() => goToComments(post)}>comments</button>
+            <InsertCommentIcon onClick={() => goToComments(post)}/>
+            {/* <button onClick={() => goToComments(post)}>comments</button> */}
             </div>
            </div>
            </div>

@@ -8,9 +8,10 @@ import {  useSelector } from 'react-redux'
 import Post from '../Post/Post'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import {useParams, useHistory } from 'react-router-dom'
-
-
+import InsertCommentIcon from '@material-ui/icons/InsertComment';
+import EditIcon from '@material-ui/icons/Edit';
 function Profile () {
+    // packages
     const dispatch = useDispatch();
     let history = useHistory();
     const { id } = useParams();
@@ -22,20 +23,15 @@ function Profile () {
         const followers = useSelector(store=> store.followers)
         const following = useSelector(store => store.followReducer)
       
-// 
-    // useEffect(() => {
-    //     dispatch({type:'FETCH_FOLLOWING'})
-    //     console.log(following)
-    // //    let isFollowing = following.some(follow => follow.id  = po)
-    //    console.log(follower)
-
-    //   }, []);
 //  run on load to fetch posts for that profile
     useEffect( () => {
         console.log()
         console.log('at profile')
+        // fetch the followers of the profile
         dispatch({type:"FETCH_PROFILE_FOLLOWERS", payload:{user_id: id}})
+        // fetch the username and id of the profile
         dispatch({type: 'FETCH_PROFILE', payload:{user_id: id}})
+        // fetch their posts
         dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
    
       }, []);
@@ -100,21 +96,21 @@ const goToComments = (post) => {
                 <div className="posts">
                 <div>
                  <div className="info">
-                 <div >@ {post.username} </div>
+                 <div >@{post.username} </div>
             <h1>Rating: {post.rating}/10</h1>
             <p>{post.description}</p>
            
             <p>{post.favorites} favorites</p>
             {user.id == id ? (<div>
-            <div>   
-             <button onClick={() => {editPost(post)}}>Edit</button>
+            <div>  
+                <EditIcon onClick={() => {editPost(post)}} /> 
             </div>  
               <div>
             <button onClick={() => {deletePost(post)}}>Delete</button>
             </div>
             </div>
             ): ( <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
-                     <button onClick={() => goToComments(post)}>comments</button>
+                     <InsertCommentIcon onClick={() => goToComments(post)}/>
            </div>
   
            </div>

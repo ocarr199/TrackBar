@@ -2,8 +2,10 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
+const  {rejectUnauthenticated} = require('../modules/authentication-middleware')
 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
+  
   const query = `SELECT *,"post".id, "user".username FROM "post"
                   JOIN "user" ON "post".user_id = "user".id
                   ORDER BY "time_posted" DESC;`
@@ -13,7 +15,7 @@ router.get('/', (req, res) => {
       res.send(result.rows);
     })
     .catch(err => {
-      console.error("ERROR in post get", err);
+      console.error("ERROR in get posts router", err);
       res.sendStatus(500)
     })
 
@@ -194,7 +196,7 @@ router.put('/favorite/:id', (req, res) => {
         .then(result => {
             res.sendStatus(200)
         }).catch(err => {
-            console.log(err)
+            console.log("favorite post router error -> ",err)
             res.sendStatus(500)
         })
 });

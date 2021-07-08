@@ -5,6 +5,7 @@ import {useParams, useHistory } from 'react-router-dom'
 import {  useSelector, useDispatch } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import  { useEffect } from 'react';
+import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import './Comments.css'
 function Comments() {
   // initializing packages 
@@ -17,14 +18,15 @@ const dispatch = useDispatch();
 
   //  redux state for current user and all comments 
   const user = useSelector(store => store.user)
+  const posts = useSelector(store => store.posts);
   const allComments = useSelector(store => store.allComments)
-
+console.log(posts)
 
 // run on load 
     useEffect(() => {
         console.log('at comments')
         dispatch({type: 'FETCH_COMMENTS', payload:{post_id: id}})
-      
+        dispatch({type: 'FETCH_POSTS'})
       }, []);
 
 // changing state of current comment
@@ -55,6 +57,26 @@ const goToProfile = (comment) => {
     return(
     <>
     <p>COMMENT</p>
+    {posts.filter((element) => element.id == id).map(post => {
+            return(
+                <div className="posts">
+                <div>
+                 <div className="info">
+                 <div onClick={() => goToProfile(post)}>@{post.username} </div>
+                 <h1>Rating: {post.rating}/10</h1>
+                <p>{post.description}</p>
+       
+            <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>
+            {post.favorites}
+            <div>
+            <button onClick={() => goToComments(post)}>comments</button>
+            </div>
+           </div>
+           </div>
+           <iframe className="player" src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+           </div>
+           )
+        })}
     <form onSubmit={confirmComment}>
                 <TextField 
                 onChange={handleCommentChange}

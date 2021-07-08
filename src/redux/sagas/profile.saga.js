@@ -13,7 +13,7 @@ import { put, takeLatest } from 'redux-saga/effects';
   }
 
    function* fetchFollowers(action) {
-    console.log("got to fetchProfile payload id ->", action.payload)
+    console.log("got to fetch Profile Followers, payload ->", action.payload)
     try {
       const followersObject = yield axios.get(`/post/followers/${action.payload.user_id}`);
       const followersArray = followersObject.data.map(object => {
@@ -22,7 +22,7 @@ import { put, takeLatest } from 'redux-saga/effects';
       console.log("followersArray", followersArray)
       yield put({type:'SET_FOLLOWERS', payload: followersArray})
     } catch (error) {
-      console.log('fetch profile posts failed', error);
+      console.log('fetch profile followers failed', error);
     }
   }
 

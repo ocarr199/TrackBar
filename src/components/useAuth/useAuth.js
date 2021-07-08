@@ -4,10 +4,22 @@ import axios from "axios"
 export default function useAuth(code) {
   const [accessToken, setAccessToken] = useState()
   const [refreshToken, setRefreshToken] = useState()
-  const [expiresIn, setExpiresIn] = useState()
+  const [expiresIn, setExpiresIn] = useState(60.25)
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+
 
   useEffect(() => {
-    axios
+    const savedRefreshToken =  getCookie('refreshToken')
+    if (savedRefreshToken){
+      setRefreshToken(savedRefreshToken)
+    }else{
+
+      axios
       .post("/spotifyLogin", {
         code,
       })
@@ -15,15 +27,19 @@ export default function useAuth(code) {
         setAccessToken(res.data.accessToken)
         setRefreshToken(res.data.refreshToken)
         setExpiresIn(res.data.expiresIn)
-        window.history.pushState({}, null, "/")
+        document.cookie = `refreshToken=${res.data.refreshToken}`
+        // window.history.pushState({}, null, "/")
       })
       .catch(() => {
-        window.location = "/"
+          console.log('somethings wrong')
+        // window.location = "/"
       })
+    }
+
   }, [code])
 
   useEffect(() => {
-    if (!refreshToken || !expiresIn) return
+    if (!refreshToken) return
     const interval = setInterval(() => {
       axios
         .post("/spotifyLogin/refresh", {

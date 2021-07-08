@@ -10,6 +10,8 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import {useParams, useHistory } from 'react-router-dom'
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 function Profile () {
     // packages
     const dispatch = useDispatch();
@@ -45,7 +47,7 @@ function Profile () {
 
 // brings user to edit page for that post
     const editPost = (post) => {
-        console.log("deletePost", post.id)
+        console.log("editPost", post.id)
         history.push(`/edit/${post.id}`)
     }
 
@@ -82,12 +84,8 @@ const goToComments = (post) => {
         <> 
            <div className="main-feed">
         <h1> {profile.username}'s Profile</h1>
-        {user.id == id ?<></>: followersIncludes ? <button onClick={unfollowUser}>Unfollow</button>: <button onClick={followUser}>Follow</button>}
-         {/* {user.id == id ? 
-         ( ): 
-        ( ):
-        userFollowProfile ? : (<></>)
-        } */}
+        {user.id == id ?<></>: followersIncludes ? <button style={{cursor: "pointer"}} onClick={unfollowUser}>Unfollow</button>: <button style={{cursor: "pointer"}} onClick={followUser}>Follow</button>}
+    
 
         {posts.map(post => {
             return(
@@ -102,15 +100,15 @@ const goToComments = (post) => {
            
             <p>{post.favorites} favorites</p>
             {user.id == id ? (<div>
-            <div>  
-                <EditIcon onClick={() => {editPost(post)}} /> 
+            <div className="editBTN">  
+                <EditIcon style={{cursor: "pointer"}} onClick={() => {editPost(post)}} /> 
             </div>  
-              <div>
-            <button onClick={() => {deletePost(post)}}>Delete</button>
+              <div className="deleteBTN">
+            <DeleteIcon style={{cursor: "pointer"}} onClick={() => {deletePost(post)}}>Delete</DeleteIcon>
             </div>
             </div>
-            ): ( <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
-                     <InsertCommentIcon onClick={() => goToComments(post)}/>
+            ): ( <ThumbUpAltIcon style={{cursor: "pointer"}} id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
+                     <InsertCommentIcon style={{cursor: "pointer"}} onClick={() => goToComments(post)}/>
            </div>
   
            </div>

@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useState } from "react";
 import TextField from '@material-ui/core/TextField';
 import {useHistory} from 'react-router-dom'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import './Following.css'
 function Following () {
   const dispatch = useDispatch();
@@ -40,21 +42,36 @@ console.log(users)
         <div className="search-users">
         <h2>search</h2>
         <TextField value={userSearch} onChange={handleSearchChange} id="outlined-basic" label="search for users" variant="outlined" />
+        <List>
         {users.filter((user) => user.username.includes(userSearch)).map(user => {
             return(
-                <p onClick={() => goToProfile(user)}>@{user.username}</p>
+                <ListItem>
+                <p 
+                key={user.id}
+                style={{cursor: "pointer"}} 
+                onClick={() => goToProfile(user)}>@{user.username}</p>
+                </ListItem>
            )
         })}
+        </List>
         </div>
 
         <div className="following-list">
         <h2>Following</h2>
+        <List>
         {followingList.map(following => {
             return(
-                           <p onClick={() => goToProfile(following)}>@{following.username}</p>
+                <ListItem>
+                           <p
+                            key={following.id}
+                            style={{cursor: "pointer"}} 
+                            onClick={() => goToProfile(following)}
+                            >@{following.username}</p>
+                </ListItem>
             )
      
         })}
+        </List>
          </div>
         </>
     )

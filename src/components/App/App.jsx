@@ -27,11 +27,17 @@ import EditPost from '../EditPost/EditPost'
 import Comments from '../Comments/Comments'
 import './App.css';
 
-
+// get code for spotify api
 const code = new URLSearchParams(window.location.search).get('code')
-function App() {
-  const dispatch = useDispatch();
 
+function App() {
+
+  console.log(code)
+
+  const dispatch = useDispatch();
+useEffect(() => {
+ 
+})
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
   }, [dispatch]);
@@ -82,15 +88,13 @@ function App() {
             // - else shows LoginPage at /login
             exact
             path="/login"
-            authRedirect="/feed"
+            authRedirect="/user"
           >
             <LoginPage />
           </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows RegisterPage at "/registration"
+
             exact
             path="/registration"
             authRedirect="/user"
@@ -99,9 +103,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+ 
             exact
             path="/home"
             authRedirect="/user"
@@ -109,9 +111,7 @@ function App() {
             <LandingPage />
           </ProtectedRoute>
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+
             exact
             path="/feed"
     
@@ -119,9 +119,7 @@ function App() {
             <MainFeed />
           </ProtectedRoute>
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+    
             exact
             path="/create"
     
@@ -129,9 +127,7 @@ function App() {
             <CreatePost code={code} />
           </ProtectedRoute>
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+
             exact
             path="/profile/:id"
     
@@ -139,9 +135,7 @@ function App() {
             <Profile />
           </ProtectedRoute>
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+ 
             exact
             path="/following"
     
@@ -149,9 +143,7 @@ function App() {
             <Following />
           </ProtectedRoute>
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+  
             exact
             path="/edit/:id"
     
@@ -159,9 +151,7 @@ function App() {
             <EditPost />
           </ProtectedRoute>
            <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
+     
             exact
             path="/comments/:id"
     

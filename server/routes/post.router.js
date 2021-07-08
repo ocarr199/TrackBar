@@ -21,7 +21,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 })
 
-router.get('/profileUser/:id', (req, res) => {
+router.get('/profileUser/:id',rejectUnauthenticated, (req, res) => {
   const userID = req.params.id
   console.log("user profile id", userID)
   const query = `SELECT "user".id,"user".username FROM "user"
@@ -40,7 +40,7 @@ WHERE "user".id = $1;`
 })
 
 
-router.get('/followers/:id', (req, res) => {
+router.get('/followers/:id',rejectUnauthenticated, (req, res) => {
   const userID = req.params.id
   console.log("user profile id", userID)
   const query = `SELECT "following".following_user_id  FROM "user"
@@ -62,7 +62,7 @@ GROUP BY "following".following_user_id ;`
 })
 
 
-router.get('/profile/:id', (req, res) => {
+router.get('/profile/:id',rejectUnauthenticated, (req, res) => {
   const userID = req.params.id
   console.log(userID)
   const query = `SELECT *,"post".id, "user".username FROM "post"
@@ -82,7 +82,7 @@ router.get('/profile/:id', (req, res) => {
 
 })
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id',rejectUnauthenticated, (req, res) => {
   const postID = req.params.id
   console.log(postID)
   const query = `SELECT * FROM "post"
@@ -99,7 +99,7 @@ router.get('/edit/:id', (req, res) => {
 
 })
 
-router.delete('/profile/:id', (req, res) => {
+router.delete('/profile/:id',rejectUnauthenticated, (req, res) => {
   const postID = req.params.id
   console.log(postID)
   const query = `DELETE FROM "post" WHERE id = $1;`
@@ -116,7 +116,7 @@ router.delete('/profile/:id', (req, res) => {
 })
 
 
-router.post('/', (req, res) => {
+router.post('/',rejectUnauthenticated, (req, res) => {
   console.log('this is the req.body', req.body);
 
 const postQuery = `INSERT INTO "post" ("description","rating", "embed_code", "user_id" )
@@ -134,7 +134,7 @@ pool.query(postQuery, values)
 
 })
 
-router.post('/favorite', (req, res) => {
+router.post('/favorite',rejectUnauthenticated, (req, res) => {
   console.log('this is the req.body', req.body);
 const postQuery = `INSERT INTO "favorites" ("user_id", "post_id" )
                    VALUES ($1, $2)`
@@ -151,7 +151,7 @@ pool.query(postQuery, values)
 })
 
 
-router.post('/comment', (req, res) => {
+router.post('/comment', rejectUnauthenticated, (req, res) => {
   console.log('this is the req.body', req.body);
 const postQuery = `INSERT INTO "comments" ("post_id", "user_id", "comment" )
                    VALUES ($1, $2, $3);`
@@ -167,7 +167,7 @@ pool.query(postQuery, values)
 
 })
 
-router.get('/comment/:id', (req, res) => {
+router.get('/comment/:id',rejectUnauthenticated, (req, res) => {
   const postID = req.params.id
   console.log(postID)
   const query = `SELECT * , "user".username FROM "comments"
@@ -185,7 +185,7 @@ router.get('/comment/:id', (req, res) => {
 
 })
 
-router.put('/favorite/:id', (req, res) => {
+router.put('/favorite/:id',rejectUnauthenticated, (req, res) => {
     // recieve post id
     const postId = req.params.id;
     //   add 1 to likes where the id = galleryId
@@ -201,7 +201,7 @@ router.put('/favorite/:id', (req, res) => {
         })
 });
 
-router.put('/edit', (req, res) => {
+router.put('/edit',rejectUnauthenticated, (req, res) => {
     // recieve post id
     const editedPost = req.body
     console.log("edited post data is -> ",editedPost)

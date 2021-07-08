@@ -21,15 +21,23 @@ function CreatePost({code}) {
     const [rating, setRating] = useState('');
     const [search, setSearch] = useState('')
     const [searchResults, setSearchResults] = useState([])
+    const [chosenTrack, setChosenTrack] = useState('')
     console.log(searchResults)
 // requiring packages
     const dispatch = useDispatch();
     let history = useHistory();
 const user = useSelector(store => store.user)
 // spotify api
+console.log(code)
+
+
 const accessToken = useAuth(code)
+console.log(accessToken)
 
 console.log(user)
+useEffect(() => {
+
+}, [code])
 
 useEffect(() => {
     if (!accessToken) return
@@ -85,21 +93,23 @@ return () => cancel = true
         setDescription('');
         setEmbed('');
         setRating('');
-        history.push('/feed')
+        history.push(`/profile/${user.id}`)
     }
     console.log(embed)
 return(
     <>
     <p>Create Post</p>
+    <h2>{chosenTrack}</h2>
     <form onSubmit={submitPost}>
-                <TextField onChange={handleDescriptionChange} value={description} id="outlined-basic" label="Description" variant="outlined" />
-                 <TextField onChange={handleRatingChange} value={rating} id="outlined-basic" label="rating"    type="number" variant="outlined" />
-                <TextField  
+                 <TextField  
                 value={search}
                  onChange={e => setSearch(e.target.value)}
                  id="outlined-basic"
                 label="search" 
                 variant="outlined" />
+                <TextField onChange={handleDescriptionChange} value={description} id="outlined-basic" label="Description" variant="outlined" />
+                 <TextField onChange={handleRatingChange} value={rating} id="outlined-basic" label="rating"    type="number" variant="outlined" />
+            
                 <Button
                     type="submit"
                     variant="contained"
@@ -109,7 +119,7 @@ return(
                   </Button>
             </form>
             {searchResults.map(track => (
-                <TrackSearchResult track={track} key={track.uri} setEmbed={setEmbed} embed={embed}/>
+                <TrackSearchResult track={track} key={track.uri} setEmbed={setEmbed} embed={embed} setChosenTrack={setChosenTrack}/>
             ))}
     </>
 )

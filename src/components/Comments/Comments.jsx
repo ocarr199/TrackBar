@@ -10,7 +10,7 @@ import './Comments.css'
 function Comments() {
   // initializing packages 
 const history = useHistory()
-const { id } = useParams();
+const { id } = useParams();``
 const dispatch = useDispatch();
 
 // local state variable for current comments
@@ -68,9 +68,6 @@ const goToProfile = (comment) => {
        
             <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>
             {post.favorites}
-            <div>
-            <button onClick={() => goToComments(post)}>comments</button>
-            </div>
            </div>
            </div>
            <iframe className="player" src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>

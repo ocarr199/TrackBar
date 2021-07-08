@@ -2,8 +2,9 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 const axios = require('axios');
+const  {rejectUnauthenticated} = require('../modules/authentication-middleware')
 
-router.post('/', (req, res) => {
+router.post('/',rejectUnauthenticated, (req, res) => {
 const postQuery = `INSERT INTO "following" ("following_user_id","followed_user_id" )
                    VALUES ($1, $2)`
 
@@ -18,7 +19,7 @@ pool.query(postQuery, values)
 
 })
 
-router.delete('/', (req, res) => {
+router.delete('/',rejectUnauthenticated, (req, res) => {
   console.log('got to delete router')
   console.log(req.data)
 const postQuery = `DELETE FROM "following" WHERE "following_user_id" = $1 AND "followed_user_id" = $2;`
@@ -35,7 +36,7 @@ pool.query(postQuery, values)
 })
 
 
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
   userID = req.params.id 
       const query = `SELECT "user".username, "following".followed_user_id AS id FROM "following"
 JOIN "user" ON "user".id = "following".followed_user_id

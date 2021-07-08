@@ -53,14 +53,14 @@ const goToComments = (post) => {
                 <div className="posts">
                 <div>
                  <div className="info">
-                 <div onClick={() => goToProfile(post)}>@{post.username} </div>
+                 <div style={{cursor: "pointer"}} onClick={() => goToProfile(post)}>@{post.username} </div>
                  <h1>Rating: {post.rating}/10</h1>
                 <p>{post.description}</p>
        
-            <ThumbUpAltIcon id="likeBtn" onClick={() => {favoritePost(post)}}/>
+            <ThumbUpAltIcon id="likeBtn" style={{cursor: "pointer"}} onClick={() => {favoritePost(post)}}/>
             {post.favorites}
             <div>
-            <InsertCommentIcon onClick={() => goToComments(post)}/>
+            <InsertCommentIcon  style={{cursor: "pointer"}} onClick={() => goToComments(post)}/>
             {/* <button onClick={() => goToComments(post)}>comments</button> */}
             </div>
            </div>

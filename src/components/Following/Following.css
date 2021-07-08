@@ -1,9 +1,18 @@
 .search-users{
     float:left;
-        margin-left: 50px;
+    padding: 50px;
+        margin-left: 400px;
+        border: 2px solid black;
 }
 
-.ollowing-list{
-    float:left;
-    margin-left: 20px;
+.following-list{
+    float:right;
+    margin-right: 400px;
+    padding: 50px;
+    border: 2px solid black;
+    align-items:center;
+}
+.username{
+    width: 150px;
+    border: 2px solid black;
 }

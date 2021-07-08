@@ -1,7 +1,8 @@
-function TrackSearchResult ({track, setEmbed, embed}) {
+function TrackSearchResult ({track, setEmbed, embed, setChosenTrack}) {
     function selectSong(track){
-        setEmbed(track.uri)
 
+        setEmbed(track.uri)
+        setChosenTrack(track.title)
     }
     console.log("embed is",embed)
     return(

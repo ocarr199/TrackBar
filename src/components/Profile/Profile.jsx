@@ -11,7 +11,9 @@ import {useParams, useHistory } from 'react-router-dom'
 import InsertCommentIcon from '@material-ui/icons/InsertComment';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import './Profile.css'
 function Profile () {
     // packages
     const dispatch = useDispatch();
@@ -25,16 +27,19 @@ function Profile () {
         const followers = useSelector(store=> store.followers)
         const following = useSelector(store => store.followReducer)
       
+        console.log(following)
 //  run on load to fetch posts for that profile
     useEffect( () => {
         console.log()
         console.log('at profile')
+        dispatch({type:'FETCH_FOLLOWING', payload: id})
         // fetch the followers of the profile
         dispatch({type:"FETCH_PROFILE_FOLLOWERS", payload:{user_id: id}})
         // fetch the username and id of the profile
         dispatch({type: 'FETCH_PROFILE', payload:{user_id: id}})
+        dispatch({ type: 'FETCH_POSTS' });
         // fetch their posts
-        dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
+        // dispatch({type: 'FETCH_PROFILE_POSTS', payload:{user_id: id}})
    
       }, []);
         
@@ -82,16 +87,31 @@ const goToComments = (post) => {
 
     return(
         <> 
-           <div className="main-feed">
-        <h1> {profile.username}'s Profile</h1>
-        {user.id == id ?<></>: followersIncludes ? <button style={{cursor: "pointer"}} onClick={unfollowUser}>Unfollow</button>: <button style={{cursor: "pointer"}} onClick={followUser}>Follow</button>}
+        <div className="main-feed">
+        <h1 className="header"> {profile.username}'s Profile</h1>
+        {user.id == id ?<></>: followersIncludes ? <button className="unfollow" style={{cursor: "pointer"}} onClick={unfollowUser}>Unfollow</button>: <button className="follow"  style={{cursor: "pointer"}} onClick={followUser}>Follow</button>}
     
-
-        {posts.map(post => {
+        {/* <div className="followingList">
+        <h2>Following</h2>
+        <List>
+        {following.map(account => {
+            return(
+                <ListItem>
+                           <p
+                            key={account.id}
+                            style={{cursor: "pointer"}} 
+                            onClick={() => goToProfile(account)}
+                            >@{account.username}</p>
+                </ListItem>
+            )
+        })}
+             </List>
+         </div> */}
+        <div className="postHolder" >
+        {posts.filter(post => post.user_id == id).map(post => {
             return(
                 <>
-   
-                <div className="posts">
+                <div className="posts contentHolder">
                 <div>
                  <div className="info">
                  <div >@{post.username} </div>
@@ -108,18 +128,19 @@ const goToComments = (post) => {
             </div>
             </div>
             ): ( <ThumbUpAltIcon style={{cursor: "pointer"}} id="likeBtn" onClick={() => {favoritePost(post)}}/>)}
-                     <InsertCommentIcon style={{cursor: "pointer"}} onClick={() => goToComments(post)}/>
+                 <InsertCommentIcon style={{cursor: "pointer"}} onClick={() => goToComments(post)}/>
            </div>
-  
            </div>
            <iframe  className="player" src={post.embed_code} width="300" height="380" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
            </div>
            </>
            )
         })}
-       
-        </div>
+         </div>
 
+ 
+
+        </div>
         </>
     )
 }

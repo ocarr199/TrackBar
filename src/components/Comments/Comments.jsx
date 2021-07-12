@@ -6,6 +6,7 @@ import {  useSelector, useDispatch } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import  { useEffect } from 'react';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
+import Card from '@material-ui/core/Card';
 import './Comments.css'
 function Comments() {
   // initializing packages 
@@ -44,7 +45,7 @@ setCurrentComment('')
 }
 // go back to previous page
 const goBack = () => {
-  history.goBack()
+  history.push(`/feed`)
 }
 // go to persons profile on click of their username
 const goToProfile = (comment) => {
@@ -52,14 +53,23 @@ const goToProfile = (comment) => {
         history.push(`/profile/${comment.user_id}`)
 }
 
-
+const exampleComment = () => {
+  setCurrentComment("Haven't heard this one before but I'm for sure gonna check it out")
+}
 
     return(
     <>
-    <p>COMMENT</p>
+      <Button
+                    onClick={goBack}
+                    variant="contained"
+                    color="secondary"
+                >
+                    Back
+                  </Button>
+    <p onClick={exampleComment}>COMMENT</p>
     {posts.filter((element) => element.id == id).map(post => {
             return(
-                <div className="posts">
+                <div className="posts contentHolder">
                 <div>
                  <div className="info">
                  <div onClick={() => goToProfile(post)}>@{post.username} </div>
@@ -76,36 +86,37 @@ const goToProfile = (comment) => {
         })}
     <form onSubmit={confirmComment}>
                 <TextField 
+                fullWidth
                 onChange={handleCommentChange}
                  value={currentComment} 
                  id="outlined-basic" 
                  label="comment"
-                 variant="outlined" />
-
-                <Button
+                 variant="outlined"
+                 style={{backgroundColor:"white"}} />
+                
+                <button
+                className='btn postComment'
                     type="submit"
                     variant="contained"
                     color="secondary"
                 >
                     Post
-                  </Button>
+                  </button>
 
 
             </form>
-               <Button
-                    onClick={goBack}
-                    variant="contained"
-                    color="secondary"
-                >
-                    Back
-                  </Button>
+             
 
             {allComments.map(comment => {
             return(
-             <div className="commentDiv">
+              <Card
+              variant="outlined"
+              style={{height:'100px', width: '400px'}} >
+             
              <p onClick={() => goToProfile(comment)}>@{comment.username}</p>
                 <p>{comment.comment}</p>
-             </div>
+            
+             </Card>
            )
         })}
            

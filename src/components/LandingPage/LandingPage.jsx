@@ -15,11 +15,11 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
+      <h2 className="header">{heading}</h2>
 
       <div className="grid">
         <div className="grid-col grid-col_8">
-          <p>
+          <p className="header">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
             id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus
             ut ex molestie blandit. Etiam et turpis sit amet risus mollis
@@ -31,7 +31,7 @@ function LandingPage() {
             luctus. Duis a sapien metus.
           </p>
 
-          <p>
+          <p className="header">
             Praesent consectetur orci dui, id elementum eros facilisis id. Sed
             id dolor in augue porttitor faucibus eget sit amet ante. Nunc
             consectetur placerat pharetra. Aenean gravida ex ut erat commodo, ut
@@ -42,7 +42,7 @@ function LandingPage() {
             congue.
           </p>
 
-          <p>
+          <p className="header">
             Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
             Suspendisse posuere dapibus maximus. Aliquam vitae felis libero. In
             vehicula sapien at semper ultrices. Vivamus sed feugiat libero. Sed
@@ -55,7 +55,7 @@ function LandingPage() {
           <RegisterForm />
 
           <center>
-            <h4>Already a Member?</h4>
+            <h4 className='header'>Already a Member?</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>
               Login
             </button>

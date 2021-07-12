@@ -10,7 +10,6 @@ function Following () {
   const dispatch = useDispatch();
   const history= useHistory();
     let [userSearch, setUserSearch]=useState('')
-
         const followingList = useSelector(store => store.followReducer)
         const user = useSelector(store => store.user)
     useEffect(() => {
@@ -31,15 +30,15 @@ const goToProfile = (user) => {
 }
 
 
-console.log(followingList)
+console.log('following', followingList)
 
  const users = useSelector(store => store.allUsers)
 
 console.log(users)
 // const result = users.filter(user === searchBs );
     return(
-        <>
-        <div className="search-users">
+        <div className='followingPage '>
+        <div className="search-users contentHolder">
         <h2>search</h2>
         <TextField value={userSearch} onChange={handleSearchChange} id="outlined-basic" label="search for users" variant="outlined" />
         <List>
@@ -55,8 +54,9 @@ console.log(users)
         })}
         </List>
         </div>
+        
 
-        <div className="following-list">
+        <div className="following-list contentHolder">
         <h2>Following</h2>
         <List>
         {followingList.map(following => {
@@ -73,7 +73,7 @@ console.log(users)
         })}
         </List>
          </div>
-        </>
+        </div>
     )
 }
 

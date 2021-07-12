@@ -46,11 +46,11 @@ const goToComments = (post) => {
         const followingIDs = following.map(follow => follow.id)
     return(
         <div className="main-feed">
-        <h1>MainFeed</h1>
+        <h1 className="header">Main Feed</h1>
         {/* filter posts to just show posts from people you are */}
         {posts.filter((post) => followingIDs.includes(post.user_id)).map(post => {
             return(
-                <div className="posts">
+                <div className="posts contentHolder">
                 <div>
                  <div className="info">
                  <div style={{cursor: "pointer"}} onClick={() => goToProfile(post)}>@{post.username} </div>

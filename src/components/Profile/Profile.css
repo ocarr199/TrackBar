@@ -1,0 +1,44 @@
+.postHolder{
+    float:left;
+  
+}
+
+.following-list{
+  
+    float:right;
+    
+}
+.follow{
+    display: inline-block;
+    padding: 10px 20px;
+    border-color: #014041;
+    border-width: 0px ; 
+    border-radius: 4px; 
+    background-color: #1DB954;
+    color: #f8f8f8;
+    font-size: 1.1rem;
+    outline: 0; 
+    cursor: pointer;  
+}
+.follow:hover {
+    background-color: #8FD9A8;
+    text-decoration: none;
+  }
+
+.unfollow{
+    display: inline-block;
+  padding: 10px 20px;
+  border-color: #014041;
+  border-width: 0px ; 
+  border-radius: 4px; 
+  background-color: #2940D3;
+  color: #f8f8f8;
+  font-size: 1.1rem;
+  outline: 0; 
+  cursor: pointer; 
+}
+
+.unfollow:hover {
+    background-color: #7868E6;
+    text-decoration: none;
+  }

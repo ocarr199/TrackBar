@@ -87,7 +87,6 @@ return () => cancel = true
 
     const submitPost = event => {
         event.preventDefault();
-        console.log(embed.slice(50, 72))
         dispatch({ type: 'SEND_POST', payload: {description: description,rating: rating, embed_code: `https://open.spotify.com/embed/track/${embed.slice(14)}`, user_id: user.id}});
         //updates the next plant to have a new id
         setDescription('');
@@ -95,31 +94,50 @@ return () => cancel = true
         setRating('');
         history.push(`/profile/${user.id}`)
     }
+    const preset = () => {
+        setDescription('this song is so smooth')
+        setRating(9)
+    }
+
+    console.log(chosenTrack)
     console.log(embed)
 return(
     <>
-    <p>Create Post</p>
-    <h2>{chosenTrack}</h2>
+    <h1 onClick={preset} className="header">Create Post</h1>
+    <h2 className="header">SELECTED: {chosenTrack}</h2>
     <form onSubmit={submitPost}>
                  <TextField  
+                 required={true}
                 value={search}
                  onChange={e => setSearch(e.target.value)}
                  id="outlined-basic"
                 label="search" 
-                variant="outlined" />
-                <TextField onChange={handleDescriptionChange} value={description} id="outlined-basic" label="Description" variant="outlined" />
-                 <TextField onChange={handleRatingChange} value={rating} id="outlined-basic" label="rating"    type="number" variant="outlined" />
+                variant="outlined"
+                style={{backgroundColor:"white"}}
+                 />
+                <TextField
+                required={true}
+                style = {{width: 300}}
+                style={{backgroundColor:"white"}}
+                 onChange={handleDescriptionChange} 
+                 value={description} id="outlined-basic" label="Description" variant="outlined" />
+                 <TextField 
+                 required={true}
+                 style={{backgroundColor:"white"}}
+                 onChange={handleRatingChange}
+                  value={rating} id="outlined-basic" label="rating"    type="number" variant="outlined" />
             
-                <Button
+                <button
                     type="submit"
                     variant="contained"
                     color="secondary"
-                >
+                    className="btn"
+                >   
                     Post
-                  </Button>
+                  </button>
             </form>
             {searchResults.map(track => (
-                <TrackSearchResult track={track} key={track.uri} setEmbed={setEmbed} embed={embed} setChosenTrack={setChosenTrack}/>
+                <TrackSearchResult track={track} key={track.uri} setEmbed={setEmbed} embed={embed} setChosenTrack={setChosenTrack} chosenTrack={chosenTrack}/>
             ))}
     </>
 )

@@ -43,8 +43,9 @@ console.log(editPost)
         event.preventDefault();
         console.log("in confirm edit on click")
        dispatch({type: 'CONFIRM_EDIT', payload: editPost})
-       history.push(`/profile/${editPost.user_id}`)
 
+       history.push(`/profile/${editPost.user_id}`)
+        
     }
 
 
@@ -55,8 +56,10 @@ return(
         <div>
                 <TextField 
                 name="description"
+                fullWidth
                 onChange={handleDescriptionChange}
                  value={editPost.description} 
+                 style={{backgroundColor:"white"}}
                  id="outlined-basic"  
                  variant="outlined" />
         </div>
@@ -66,6 +69,7 @@ return(
                  onChange={handleRatingChange} 
                  value={editPost.rating} id="outlined-basic"  
                   type="number" 
+                  style={{backgroundColor:"white"}}
                   variant="outlined" />
            </div>
                 <Button
